@@ -20,8 +20,10 @@ class FcmNotificationV2Manager {
       _notificationStreamController.stream;
   static final _notiDb = NotificationDbManager();
   static AppLifecycleListener? _appLifecycleListener;
-  static const _iosNotificationChannel = MethodChannel(
-    'quickfood_biker/ios_notifications',
+  
+  static String iosNotificationChannelName = 'ios_notifications';
+  static MethodChannel get _iosNotificationChannel => MethodChannel(
+    iosNotificationChannelName,
   );
 
   static Future<void> registerCallbackForForeground() async {
