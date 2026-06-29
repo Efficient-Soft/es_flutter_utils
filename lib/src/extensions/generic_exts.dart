@@ -22,3 +22,10 @@ extension TExts<T> on T {
     }
   }
 }
+
+extension NullableExt<T> on T? {
+  R? let<R>(R Function(T it) block) {
+    final value = this;
+    return value != null ? block(value) : null;
+  }
+}
