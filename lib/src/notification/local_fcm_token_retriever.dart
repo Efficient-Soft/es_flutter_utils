@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocalFcmTokenRetriever {
-  static const _itemKey = 'qf_biker_fcm_key';
+  static const _itemKey = 'qf_fcm_key';
 
   Future<String?> get() async {
     final prefs = await SharedPreferences.getInstance();
