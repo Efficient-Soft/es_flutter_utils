@@ -31,7 +31,6 @@ class FcmNotificationV2Manager {
     _onMsbCb ??= FirebaseMessaging.onMessage.listen((event) async {
       printLog('FCM -> ${event.toMap()}');
       if (_isValidRemoteMessage(event)) {
-        // it is read.since it is from foreground
         final noti = NotificationModel.fromRemoteMessage(event);
         await _notiDb.saveNotification(noti);
         _emitNotification([noti]);
