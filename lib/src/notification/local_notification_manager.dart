@@ -6,8 +6,6 @@ class LocalNotificationConfig {
   final String androidFcmChannelName;
   final String androidGeneralChannelId;
   final String androidGeneralChannelName;
-  final String? iosNewOrderSound;
-  final String? iosDefaultSound;
 
   const LocalNotificationConfig({
     this.androidDefaultIcon = '@mipmap/ic_launcher',
@@ -15,8 +13,6 @@ class LocalNotificationConfig {
     this.androidFcmChannelName = 'FCM Push Notifications',
     this.androidGeneralChannelId = 'default_general_channel_id',
     this.androidGeneralChannelName = 'General Notifications',
-    this.iosNewOrderSound = 'qfsong.wav',
-    this.iosDefaultSound = 'custom_alert.wav',
   });
 }
 
@@ -35,7 +31,7 @@ class LocalNotificationManager {
     int id = 225,
     required String title,
     required String body,
-    bool isNewOrderAlert = false,
+    String? iosSound,
   }) async {
     if (!_initialized) {
       await init();
@@ -49,9 +45,7 @@ class LocalNotificationManager {
           _config.androidGeneralChannelId,
           _config.androidGeneralChannelName,
         ),
-        iOS: DarwinNotificationDetails(
-          sound: isNewOrderAlert ? _config.iosNewOrderSound : _config.iosDefaultSound,
-        ),
+        iOS: DarwinNotificationDetails(sound: iosSound),
       ),
     );
   }
@@ -70,7 +64,8 @@ class LocalNotificationManager {
 
     final androidResolver = _plugin
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>();
+          AndroidFlutterLocalNotificationsPlugin
+        >();
     await androidResolver?.createNotificationChannel(
       AndroidNotificationChannel(
         _config.androidFcmChannelName,
