@@ -17,33 +17,7 @@ class NotificationModelTable extends Table {
   Set<Column>? get primaryKey => {messageId}; // Ensure unique messages
 }
 
-enum PaymentCallback {
-  walletCallBack,
-  creditCallBack,
-  orderCallBack,
-  repaymentCallback,
-  statementCallback;
 
-  static PaymentCallback? fromValue(String value) {
-    if (value.contains(RegExp('WalletCallback', caseSensitive: false))) {
-      return walletCallBack;
-    } else if (value.contains(RegExp('CreditCallback', caseSensitive: false))) {
-      return creditCallBack;
-    } else if (value.contains(RegExp('OrderCallback', caseSensitive: false))) {
-      return orderCallBack;
-    } else if (value.contains(
-      RegExp('RepaymentCallback', caseSensitive: false),
-    )) {
-      return repaymentCallback;
-    } else if (value.contains(
-      RegExp('StatementCallback', caseSensitive: false),
-    )) {
-      return statementCallback;
-    } else {
-      return null;
-    }
-  }
-}
 
 class NotificationModel {
   final String messageId;
@@ -54,9 +28,6 @@ class NotificationModel {
   final String? type;
   final Map<String, dynamic>? jsonData;
   final bool read;
-
-  PaymentCallback? get getPaymentCallback =>
-      PaymentCallback.fromValue(type ?? '');
   bool get isNewOrderAlert =>
       title.contains(RegExp('New Order Alert', caseSensitive: false)) == true;
 
