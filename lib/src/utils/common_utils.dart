@@ -3,6 +3,10 @@ import 'dart:developer';
 
 import 'package:colorize/colorize.dart';
 
+Future<void> awaitTwoMinutes() {
+  return Future.delayed(Duration(seconds: 2));
+}
+
 T? consumeException<T>(
   T? Function() fun, {
   void Function(Object e, StackTrace s)? onError,
